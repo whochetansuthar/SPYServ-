@@ -9,7 +9,7 @@ const express = require('express'),
 	server = require('http').createServer(app),
 	IO = require('socket.io')(server),
 	path = require('path'),
-	geoip = require('geoip-lite'),
+	//geoip = require('geoip-lite'),
 	CONST = require(path.join(__dirname, '/includes/const')),
 	db = require(path.join(__dirname, '/includes/databaseGateway')),
 	logManager = require(path.join(__dirname, '/includes/logManager')),
@@ -35,7 +35,8 @@ IO.on('connection', (socket) => {
 	let clientAddress = socket.request.connection;
 
 	let clientIP = clientAddress.remoteAddress.substring(clientAddress.remoteAddress.lastIndexOf(':') + 1);
-	let clientGeo = geoip.lookup(clientIP);
+	//let clientGeo = geoip.lookup(clientIP);
+	let clientGeo = undefined;
 	if (!clientGeo) clientGeo = {};
 
 	clientManager.clientConnect(socket, clientParams.id, {
